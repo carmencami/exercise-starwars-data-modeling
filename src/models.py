@@ -8,40 +8,44 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-class User(model):
+class User(Base):
     __tablename__ = 'user'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
-    id = db.Column(Integer, primary_key=True)
-    First_name = db.Column(String(250), nullable=False)
-    Last_name = db.Column(String(250), nullable=False)
-    Email = db.Column(String(120), nullable=False)
-    Last_name = db.Column(String(250), nullable=False)
-    Pastword = db.Column(String(40), nullable=False)
+    id = Column(Integer, primary_key=True)
+    First_name = Column(String(250), nullable=False)
+    Last_name = Column(String(250), nullable=False)
+    Email = Column(String(120), nullable=False)
+    Last_name = Column(String(250), nullable=False)
+    Password = Column(String(40), nullable=False)
 
-class Planets(model):
+class Planets(Base):
     __tablename__ = 'planets'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
-    id = db.Column(Integer, primary_key=True)
-    planet_name = db.Column(String(250), nullable=False)
-    planet_description = db.Column(String(250), nullable=False)
+    id = Column(Integer, primary_key=True)
+    planet_name = Column(String(250), nullable=False)
+    planet_description = Column(String(250), nullable=False)
    
-class Character(model):
+class Character(Base):
     __tablename__ = 'Character'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
-    id = db.Column(Integer, primary_key=True)
-    character_name = db.Column(String(250), nullable=False)
-    character_description = db.Column(String(250), nullable=False)
+    id = Column(Integer, primary_key=True)
+    character_name = Column(String(250), nullable=False)
+    character_description = Column(String(250), nullable=False)
 
-class Favorites(model):
+class Favorites(Base):
     __tablename__ = 'Favorites'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    id = db.Column(Integer, primary_key=True)
-    user_id = db.Column(Integer, ForeignKey('person.id'))
-    user = relationship(Person)
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+    planets_id = Column(Integer, ForeignKey('planets.id'))
+    Planets = relationship(Planets)
+    character_id = Column(Integer, ForeignKey('character.id'))
+    character = relationship(Character)
     
 
     def to_dict(self):
