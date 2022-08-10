@@ -8,23 +8,41 @@ from eralchemy import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
+class User(model):
+    __tablename__ = 'user'
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    id = db.Column(Integer, primary_key=True)
+    First_name = db.Column(String(250), nullable=False)
+    Last_name = db.Column(String(250), nullable=False)
+    Email = db.Column(String(120), nullable=False)
+    Last_name = db.Column(String(250), nullable=False)
+    Pastword = db.Column(String(40), nullable=False)
 
-class Address(Base):
-    __tablename__ = 'address'
+class Planets(model):
+    __tablename__ = 'planets'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = db.Column(Integer, primary_key=True)
+    planet_name = db.Column(String(250), nullable=False)
+    planet_description = db.Column(String(250), nullable=False)
+   
+class Character(model):
+    __tablename__ = 'Character'
+    # Here we define columns for the table person
+    # Notice that each column is also a normal Python instance attribute.
+    id = db.Column(Integer, primary_key=True)
+    character_name = db.Column(String(250), nullable=False)
+    character_description = db.Column(String(250), nullable=False)
+
+class Favorites(model):
+    __tablename__ = 'Favorites'
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    id = db.Column(Integer, primary_key=True)
+    user_id = db.Column(Integer, ForeignKey('person.id'))
+    user = relationship(Person)
+    
 
     def to_dict(self):
         return {}
